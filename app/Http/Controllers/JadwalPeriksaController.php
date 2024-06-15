@@ -42,21 +42,28 @@ class JadwalPeriksaController extends Controller
     public function store(Request $request)
     {
         if($request->id){
-            $obat = JadwalPeriksa::find($request->id);
+            $jadwal = JadwalPeriksa::find($request->id);
             toastr()->success("Edit jadwal periksa sukses");
         }else{
-            $obat = new JadwalPeriksa;
+            $jadwal = new JadwalPeriksa;
+
             toastr()->success("Tambah jadwal periksa sukses");
         }
 
-        $obat->id_dokter = $request->session()->get("id");
-        $obat->hari = $request->hari;
-        $obat->jam_mulai = $request->jam_mulai;
-        $obat->jam_selesai = $request->jam_selesai;
+        if(JadwalPeriksa::where("id_dokter", $request->session()->get("id"))->where("aktif", "Y")->first() && $request->aktif == "Y"){
+            JadwalPeriksa::where("id_dokter", $request->session()->get("id"))->update(["aktif" => "T"]);
+        }
 
-        $obat->save();
+        $jadwal->id_dokter = $request->session()->get("id");
+        $jadwal->hari = $request->hari;
+        $jadwal->jam_mulai = $request->jam_mulai;
+        $jadwal->jam_selesai = $request->jam_selesai;
+        $jadwal->aktif = $request->aktif;
+        $jadwal->save();
 
         return redirect('/dokter/jadwal_periksa');
+        // return redirect()->back();
+
     }
 
     /**
@@ -92,10 +99,10 @@ class JadwalPeriksaController extends Controller
      * @param  \App\Models\JadwalPeriksa  $jadwalPeriksa
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateJadwalPeriksaRequest $request, JadwalPeriksa $jadwalPeriksa)
-    {
-        //
-    }
+    // public function update(UpdateJadwalPeriksaRequest $request, JadwalPeriksa $jadwalPeriksa)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.

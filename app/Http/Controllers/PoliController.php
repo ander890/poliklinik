@@ -93,10 +93,10 @@ class PoliController extends Controller
      * @param  \App\Models\Poli  $poli
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePoliRequest $request, Poli $poli)
-    {
-        //
-    }
+    // public function update(UpdatePoliRequest $request, Poli $poli)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.

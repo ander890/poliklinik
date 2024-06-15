@@ -46,6 +46,12 @@
                               <br>
                               <label for="">Jam Selesai</label>
                               <input name="jam_selesai" type="time" class='form-control' value="{{ @$selected['jam_selesai'] }}">
+                              <br>
+                              <label for="">Status</label>
+                              <select name="aktif" class="form-control">
+                                <option value="Y" @if(@$selected['aktif'] == "Y") selected @endif>Aktif</option>
+                                <option value="T" @if(@$selected['aktif'] == "T") selected @endif>Tidak Aktif</option>
+                              </select>
                             </div>
                             <div class="col-md-12">
                               <br>

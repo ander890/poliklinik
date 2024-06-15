@@ -35,6 +35,7 @@
                             <td>Hari</td>
                             <td>Jam Mulai</td>
                             <td>Jam Selesai</td>
+                            <td>Status</td>
                             <td>Aksi</td>
                           </tr>
                         </thead>
@@ -48,9 +49,15 @@
                             <td>{{ $p->jam_mulai }}</td>
                             <td>{{ $p->jam_selesai }}</td>
                             <td>
+                              @if($p->aktif == "Y")
+                              Aktif
+                              @else
+                              Tidak Aktif
+                              @endif
+                            </td>
+                            <td>
                               <a class="btn btn-primary" href="{{ url('/dokter/jadwal_periksa/edit?id='.$p->id) }}">Edit</a>
-                              <a class="btn btn-danger" href="{{ url('/dokter/jadwal_periksa/delete/'.$p->id) }}">Hapus</a>
-
+                              <!-- <a class="btn btn-danger" href="{{ url('/dokter/jadwal_periksa/delete/'.$p->id) }}">Hapus</a> -->
                             </td>
 
                           </tr>

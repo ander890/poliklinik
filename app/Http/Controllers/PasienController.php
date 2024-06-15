@@ -12,7 +12,7 @@ use App\Models\JadwalPeriksa;
 class PasienController extends Controller
 {
     public function JadwalDokter(Request $request){
-        $jadwal = JadwalPeriksa::select("dokter.nama", "jadwal_periksa.*")->join("dokter", "jadwal_periksa.id_dokter", "=", "dokter.id")->where("dokter.id_poli", $request->id_poli)->get();
+        $jadwal = JadwalPeriksa::select("dokter.nama", "jadwal_periksa.*")->join("dokter", "jadwal_periksa.id_dokter", "=", "dokter.id")->where("dokter.id_poli", $request->id_poli)->where("jadwal_periksa.aktif", "Y")->get();
 
         return response()->json($jadwal);
     }
@@ -126,10 +126,10 @@ class PasienController extends Controller
      * @param  \App\Models\Pasien  $pasien
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePasienRequest $request, Pasien $pasien)
-    {
-        //
-    }
+    // public function update(UpdatePasienRequest $request, Pasien $pasien)
+    // {
+    //     //
+    // }
 
     /**
      * Remove the specified resource from storage.

@@ -9,7 +9,12 @@ use App\Http\Controllers\DokterController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\PoliController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\JadwalPeriksaController;
+use App\Http\Controllers\PeriksaController;
+use App\Http\Controllers\DaftarPoliController;
+
 use App\Http\Middleware\AdminAuthValidator;
+use App\Http\Middleware\DokterAuthValidator;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +56,38 @@ Route::middleware([AdminAuthValidator::class])->group(function () {
 
 Route::get('/pasien/login', [PasienController::class, 'loginPage']);
 Route::post('/pasien/login', [PasienController::class, 'loginPasien']);
+Route::post('/pasien/periksa', [DaftarPoliController::class, 'store']);
+// Route::post('/pasien/periksa', [PeriksaController::class, 'store']);
+Route::get('/pasien/jadwal_dokter', [PasienController::class, 'jadwalDokter']);
 
+
+Route::get('/dokter/login', [DokterController::class, 'loginPage']);
+Route::post('/dokter/login', [DokterController::class, 'login']);
+
+Route::middleware([DokterAuthValidator::class])->group(function () {
+    Route::get('/dokter/dashboard', [DokterController::class, 'dashboardPage'])->name("dashboardDokter");
+
+    Route::get('/dokter/jadwal_periksa', [JadwalPeriksaController::class, 'index'])->name("dokter");
+    Route::get('/dokter/jadwal_periksa/create', [JadwalPeriksaController::class, 'create']);
+    Route::post('/dokter/jadwal_periksa/create', [JadwalPeriksaController::class, 'store']);
+    Route::get('/dokter/jadwal_periksa/edit', [JadwalPeriksaController::class, 'edit']);
+    Route::post('/dokter/jadwal_periksa/edit', [JadwalPeriksaController::class, 'store']);
+
+    Route::get('/dokter/jadwal_periksa/delete/{id}', [JadwalPeriksaController::class, 'destroy']);
+    
+    Route::get('/dokter/periksa', [PeriksaController::class, 'index'])->name("pasien");
+    // Route::post('/dokter/periksa', [PeriksaController::class, 'store']);
+    Route::get('/dokter/periksa/create/{id}', [PeriksaController::class, 'create']);
+    Route::post('/dokter/periksa/create/{id}', [PeriksaController::class, 'store']);
+    Route::get('/dokter/periksa/edit', [PeriksaController::class, 'edit']);
+    Route::post('/dokter/periksa/edit', [PeriksaController::class, 'update']);
+
+    Route::get('/dokter/riwayat', [PeriksaController::class, 'riwayat'])->name("poli");
+    Route::get('/dokter/riwayat/{id}', [PeriksaController::class, 'riwayatAPI']);
+    
+    Route::get('/dokter/profile', [DokterController::class, 'profile'])->name("profile");
+    Route::post('/dokter/profile', [DokterController::class, 'storeProfile']);
+});
 
 Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
 

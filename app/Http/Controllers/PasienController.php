@@ -7,9 +7,16 @@ use App\Http\Requests\StorePasienRequest;
 use App\Http\Requests\UpdatePasienRequest;
 use App\Models\Pasien;
 use App\Models\Poli;
+use App\Models\JadwalPeriksa;
 
 class PasienController extends Controller
 {
+    public function JadwalDokter(Request $request){
+        $jadwal = JadwalPeriksa::select("dokter.nama", "jadwal_periksa.*")->join("dokter", "jadwal_periksa.id_dokter", "=", "dokter.id")->where("dokter.id_poli", $request->id_poli)->get();
+
+        return response()->json($jadwal);
+    }
+
     public function loginPage(Request $request){
         return view("page.pasien.login");
     }
@@ -130,7 +137,7 @@ class PasienController extends Controller
      * @param  \App\Models\Pasien  $pasien
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Pasien $pasien)
+    public function destroy($id)
     {
         $pasien = Pasien::find($id);
         $pasien->delete();

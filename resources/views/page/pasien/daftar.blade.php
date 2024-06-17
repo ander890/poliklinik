@@ -11,8 +11,9 @@
                 <h5>Booking Jadwal Periksa</h5>
             </center>
 
-            <form method="post">
+            <form method="post" action="{{ url('/pasien/periksa') }}">
                 @csrf
+                <input type="hidden" name="id" value="{{ $pasien->id }}">
                 <label for="">Nama</label>
                     <input
                         type="text"
@@ -30,17 +31,18 @@
                         value="{{ $pasien->no_rm }}"
                         readonly>
                 <label for="">Pilih Poli</label>
-                <select name="" class="form-control">
+                <select id="poli" name="poli" class="form-control">
+                    <option value="" selected disabled>=== PILIH POLI ===</option>
                     @foreach($poli as $pol)
                     <option value="{{ $pol->id }}">{{ $pol->nama_poli }}</option>
                     @endforeach
                 </select>
                 <label for="">Pilih Jadwal</label>
-                <select name="" class="form-control">
+                <select id="jadwal" name="jadwal" class="form-control">
                     
                 </select>
                 <label for="">Keluhan</label>
-                <textarea name="keluhan" id="" class="form-control"></textarea>
+                <textarea name="keluhan" id="" name="keluhan" class="form-control"></textarea>
                 <br>
                 <div class="row">
                     <!-- /.col -->
@@ -57,6 +59,40 @@
         <!-- /.login-card-body -->
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $(document).ready(function() {
+        $('#poli').on('change', function() {
+            // Ambil nilai dari opsi yang dipilih
+            var selectedValue = $(this).val();
+
+            // Kirim permintaan AJAX ke API
+            $.ajax({
+                url: '{{ url("pasien/jadwal_dokter") }}', // Ganti dengan URL API Anda
+                type: 'GET', // atau 'POST' tergantung pada API
+                data: { id_poli: selectedValue }, // Data yang dikirim ke API
+                success: function(response) {
+                    // Tampilkan data yang diterima dari API
+                    $('#jadwal').empty();
+            
+                    // Tambahkan opsi default
+                    $('#jadwal').append('<option value="">=== PILIH JADWAL ===</option>');
+
+                    // Iterasi melalui data dan tambahkan opsi ke elemen select
+                    response.forEach(function(item) {
+                        $('#jadwal').append('<option value="' + item.id + '">' + item.hari + ' ' + item.jam_mulai + " - " + item.jam_selesai + ' (' + item.nama + ')' + '</option>');
+                    });
+                },
+                error: function(error) {
+                    // Tangani error
+                    console.log('Error:', error);
+                }
+            });
+        });
+    });
+
+</script>
 @endsection
 
 <!-- /.login-box -->

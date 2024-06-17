@@ -1,33 +1,33 @@
 @php
 $links = [
     [
-        "href" => route('dashboardAdmin'),
+        "href" => route('dashboardDokter'),
         "text" => "Dasboard",
         "icon" => "fas fa-home",
         "is_multi" => false
     ],
     [
-        "href" => url('/admin/dokter'),
-        "text" => "Dokter",
+        "href" => route('dokter'),
+        "text" => "Jadwal Periksa",
+        "icon" => "fas fa-calendar",
+        "is_multi" => false
+    ],
+    [
+        "href" => route('pasien'),
+        "text" => "Memeriksa Pasien",
         "icon" => "fas fa-user-md",
         "is_multi" => false
     ],
     [
-        "href" => url('/admin/pasien'),
-        "text" => "Pasien",
+        "href" => route('poli'),
+        "text" => "Riwayat Pasien",
+        "icon" => "fas fa-users",
+        "is_multi" => false
+    ],
+    [
+        "href" => route('profile'),
+        "text" => "Profil",
         "icon" => "fas fa-user",
-        "is_multi" => false
-    ],
-    [
-        "href" => url('/admin/poli'),
-        "text" => "Poli",
-        "icon" => "fas fa-hospital",
-        "is_multi" => false
-    ],
-    [
-        "href" => url('/admin/obat'),
-        "text" => "Obat",
-        "icon" => "fas fa-medkit",
         "is_multi" => false
     ]
 ];

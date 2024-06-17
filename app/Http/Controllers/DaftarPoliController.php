@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreDaftarPoliRequest;
 use App\Http\Requests\UpdateDaftarPoliRequest;
 use App\Models\DaftarPoli;
+use App\Models\JadwalPeriksa;
+use App\Models\Poli;
+use App\Models\Pasien;
+
+use Illuminate\Http\Request;
 
 class DaftarPoliController extends Controller
 {
@@ -34,9 +39,25 @@ class DaftarPoliController extends Controller
      * @param  \App\Http\Requests\StoreDaftarPoliRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreDaftarPoliRequest $request)
+    public function store(Request $request)
     {
-        //
+        $dps = DaftarPoli::whereDate("created_at", date("Y-m-d"))->where("id_jadwal", $request->jadwal)->count();
+
+        $dp = new DaftarPoli;
+        $dp->id_pasien = $request->id;
+        $dp->id_jadwal = $request->jadwal;
+        $dp->keluhan = $request->keluhan;
+        $dp->no_antrian = $dps+1;
+        $dp->save();
+
+        return view("page.pasien.sukses", [
+            "keluhan" => $request->keluhan, 
+            "p" => Pasien::find($request->id),
+            "dp" => $dp, 
+            "jadwal" => JadwalPeriksa::select("dokter.nama", "jadwal_periksa.*")->join("dokter", "jadwal_periksa.id_dokter", "=", "dokter.id")->where("jadwal_periksa.id", $request->jadwal)->first(),
+            "poli" => Poli::find($request->poli)
+        ]);
+
     }
 
     /**

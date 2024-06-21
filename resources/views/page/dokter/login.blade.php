@@ -18,7 +18,6 @@
                         placeholder="Nama | Case Sensitive"
                         class="form-control @error('email') is-invalid @enderror"
                         name="nama"
-                        value="{{ old('username') }}"
                         required="required"
                         autocomplete="username"
                         autofocus="autofocus"

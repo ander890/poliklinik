@@ -20,7 +20,8 @@
                         placeholder="Nama Lengkap"
                         class="form-control @error('email') is-invalid @enderror"
                         name="nama"
-                        required="required">
+                        required="required"
+                        value="Daniel">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -33,7 +34,8 @@
                         placeholder="Alamat"
                         class="form-control @error('email') is-invalid @enderror"
                         name="alamat"
-                        required="required">
+                        required="required"
+                        value="SMG">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-map"></span>
@@ -46,7 +48,8 @@
                         placeholder="No KTP"
                         class="form-control @error('email') is-invalid @enderror"
                         name="no_ktp"
-                        required="required">
+                        required="required"
+                        value="3374">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa"></span>
@@ -59,7 +62,8 @@
                         placeholder="No. HP"
                         class="form-control @error('email') is-invalid @enderror"
                         name="no_hp"
-                        required="required">
+                        required="required"
+                        value="081">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-phone"></span>

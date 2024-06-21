@@ -21,7 +21,8 @@
                         value="{{ old('username') }}"
                         required="required"
                         autocomplete="username"
-                        autofocus="autofocus">
+                        autofocus="autofocus"
+                        value="dr. Daniel A">
                     {{-- <input type="email" class="form-control" placeholder="Email" autocomplete="off"> --}}
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -37,7 +38,8 @@
                         class="form-control @error('password') is-invalid @enderror"
                         name="no_hp"
                         required="required"
-                        autocomplete="current-password">
+                        autocomplete="current-password"
+                        value="08990727766">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>

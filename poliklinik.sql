@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Jun 2024 pada 06.06
+-- Waktu pembuatan: 29 Jun 2024 pada 05.46
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bk`
+-- Database: `poliklinik`
 --
 
 -- --------------------------------------------------------
@@ -113,11 +113,12 @@ CREATE TABLE `jadwal_periksa` (
 --
 
 INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`, `aktif`, `created_at`, `updated_at`) VALUES
-(2, 2, 'Kamis', '13:00:00', '17:00:00', 'T', '2024-06-05 21:47:48', '2024-06-14 21:06:14'),
-(3, 2, 'Senin', '00:30:00', '23:30:00', 'Y', '2024-06-17 07:31:03', '2024-06-14 21:06:30'),
-(4, 2, 'Selasa', '11:30:00', '14:30:00', 'T', '2024-06-14 20:30:33', '2024-06-14 21:06:14'),
-(5, 2, 'Rabu', '15:30:00', '20:30:00', 'T', '2024-06-14 20:30:44', '2024-06-14 21:06:14'),
-(6, 2, 'Jumat', '10:30:00', '13:30:00', 'T', '2024-06-14 20:30:55', '2024-06-14 21:06:14');
+(2, 2, 'Kamis', '13:00:00', '17:00:00', 'T', '2024-06-05 21:47:48', '2024-06-28 19:22:59'),
+(3, 2, 'Senin', '00:30:00', '23:30:00', 'T', '2024-06-17 07:31:03', '2024-06-28 19:07:43'),
+(4, 2, 'Selasa', '11:30:00', '14:30:00', 'T', '2024-06-14 20:30:33', '2024-06-28 19:07:43'),
+(5, 2, 'Rabu', '15:30:00', '20:30:00', 'T', '2024-06-14 20:30:44', '2024-06-28 19:07:43'),
+(6, 2, 'Jumat', '10:30:00', '13:30:00', 'T', '2024-06-14 20:30:55', '2024-06-28 19:07:43'),
+(7, 2, 'Sabtu', '15:07:00', '20:07:00', 'Y', '2024-06-28 19:07:24', '2024-06-28 19:23:03');
 
 -- --------------------------------------------------------
 
@@ -357,7 +358,7 @@ ALTER TABLE `dokter`
 -- AUTO_INCREMENT untuk tabel `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`

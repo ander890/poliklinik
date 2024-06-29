@@ -42,6 +42,36 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 mt-5">
+                <center>
+                    <h4>Jadwal Dokter Tersedia</h4>
+                </center>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Poli</th>
+                            <th scope="col">Nama Dokter</th>
+                            <th scope="col">Hari</th>
+                            <th scope="col">Jam Mulai</th>
+                            <th scope="col">Jam Selesai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                          @foreach($jadwal as $i => $p)
+                          <tr>
+                            <td>{{ $i+1 }}</td>
+                            <td>{{ $p->nama_poli }}</td>
+                            <td>{{ $p->nama_dokter }}</td>
+                            <td>{{ $p->hari }}</td>
+                            <td>{{ $p->jam_mulai }}</td>
+                            <td>{{ $p->jam_selesai }}</td>
+
+                          </tr>
+                          @endforeach
+                        </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </body>

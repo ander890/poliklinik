@@ -27,9 +27,7 @@ use App\Http\Middleware\DokterAuthValidator;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/admin/login', [AdminController::class, 'loginPage'])->name("login");
 Route::post('/admin/login', [AdminController::class, 'login']);
@@ -71,7 +69,7 @@ Route::middleware([DokterAuthValidator::class])->group(function () {
     Route::get('/dokter/jadwal_periksa/create', [JadwalPeriksaController::class, 'create']);
     Route::post('/dokter/jadwal_periksa/create', [JadwalPeriksaController::class, 'store']);
     Route::get('/dokter/jadwal_periksa/edit', [JadwalPeriksaController::class, 'edit']);
-    Route::post('/dokter/jadwal_periksa/edit', [JadwalPeriksaController::class, 'store']);
+    Route::post('/dokter/jadwal_periksa/edit', [JadwalPeriksaController::class, 'update']);
 
     Route::get('/dokter/jadwal_periksa/delete/{id}', [JadwalPeriksaController::class, 'destroy']);
     

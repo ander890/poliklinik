@@ -31,7 +31,6 @@
                         <thead>
                           <tr>
                             <td>No</td>
-                            <td>Nama Dokter</td>
                             <td>Hari</td>
                             <td>Jam Mulai</td>
                             <td>Jam Selesai</td>
@@ -44,7 +43,6 @@
                           @foreach($jadwal as $i => $p)
                           <tr>
                             <td>{{ $i+1 }}</td>
-                            <td>{{ Request::session()->get("nama") }}</td>
                             <td>{{ $p->hari }}</td>
                             <td>{{ $p->jam_mulai }}</td>
                             <td>{{ $p->jam_selesai }}</td>

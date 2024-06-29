@@ -31,7 +31,7 @@
                           <div class="row">
                             <div class="col-md-12">
                               <label for="">Hari</label>
-                              <select name="hari" class="form-control">
+                              <select name="hari" class="form-control" @if(@$selected) disabled @endif>
                                 <option value="Senin" @if(@$selected['hari'] == "Senin") selected @endif>Senin</option>
                                 <option value="Selasa" @if(@$selected['hari'] == "Selasa") selected @endif>Selasa</option>
                                 <option value="Rabu" @if(@$selected['hari'] == "Rabu") selected @endif>Rabu</option>
@@ -42,16 +42,18 @@
                               </select>
                               <br>
                               <label for="">Jam Mulai</label>
-                              <input name="jam_mulai" type="time" class='form-control' value="{{ @$selected['jam_mulai'] }}">
+                              <input name="jam_mulai" type="time" class='form-control' value="{{ @$selected['jam_mulai'] }}" @if(@$selected) readonly @endif>
                               <br>
                               <label for="">Jam Selesai</label>
-                              <input name="jam_selesai" type="time" class='form-control' value="{{ @$selected['jam_selesai'] }}">
+                              <input name="jam_selesai" type="time" class='form-control' value="{{ @$selected['jam_selesai'] }}" @if(@$selected) readonly @endif>
+                              @if(@$selected)
                               <br>
                               <label for="">Status</label>
                               <select name="aktif" class="form-control">
                                 <option value="Y" @if(@$selected['aktif'] == "Y") selected @endif>Aktif</option>
                                 <option value="T" @if(@$selected['aktif'] == "T") selected @endif>Tidak Aktif</option>
                               </select>
+                              @endif
                             </div>
                             <div class="col-md-12">
                               <br>

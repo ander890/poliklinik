@@ -17,7 +17,11 @@ class JadwalPeriksaController extends Controller
     public function index(Request $request)
     {
         $ret = [
-            "jadwal" => JadwalPeriksa::where("id_dokter", $request->session()->get("id"))->get(),
+            "jadwal" => JadwalPeriksa::query()
+                        ->select("jadwal_periksa.*", "dokter.nama as nama_dokter")
+                        ->join("dokter", "jadwal_periksa.id_dokter", "=", "dokter.id")
+                        ->where("id_dokter", $request->session()->get("id"))
+                        ->get(),
         ];
 
         return view('page.dokter.jadwal_periksa', $ret);
@@ -41,29 +45,21 @@ class JadwalPeriksaController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->id){
-            $jadwal = JadwalPeriksa::find($request->id);
-            toastr()->success("Edit jadwal periksa sukses");
-        }else{
-            $jadwal = new JadwalPeriksa;
+        // if(JadwalPeriksa::where("id_dokter", $request->session()->get("id"))->where("aktif", "Y")->first() && $request->aktif == "Y"){
+        //     JadwalPeriksa::where("id_dokter", $request->session()->get("id"))->update(["aktif" => "T"]);
+        // }
 
-            toastr()->success("Tambah jadwal periksa sukses");
-        }
-
-        if(JadwalPeriksa::where("id_dokter", $request->session()->get("id"))->where("aktif", "Y")->first() && $request->aktif == "Y"){
-            JadwalPeriksa::where("id_dokter", $request->session()->get("id"))->update(["aktif" => "T"]);
-        }
-
+        $jadwal = new JadwalPeriksa;
         $jadwal->id_dokter = $request->session()->get("id");
         $jadwal->hari = $request->hari;
         $jadwal->jam_mulai = $request->jam_mulai;
         $jadwal->jam_selesai = $request->jam_selesai;
-        $jadwal->aktif = $request->aktif;
+        $jadwal->aktif = "T";
         $jadwal->save();
 
-        return redirect('/dokter/jadwal_periksa');
-        // return redirect()->back();
+        toastr()->success("Tambah jadwal periksa sukses");
 
+        return redirect('/dokter/jadwal_periksa');
     }
 
     /**
@@ -92,17 +88,28 @@ class JadwalPeriksaController extends Controller
         return view('page.dokter.jadwal_periksa_add', $ret);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateJadwalPeriksaRequest  $request
-     * @param  \App\Models\JadwalPeriksa  $jadwalPeriksa
-     * @return \Illuminate\Http\Response
-     */
-    // public function update(UpdateJadwalPeriksaRequest $request, JadwalPeriksa $jadwalPeriksa)
-    // {
-    //     //
-    // }
+    public function update(Request $request)
+    {
+        //AMBIL ID DOKTER PADA SESSION
+        $idDokter = $request->session()->get("id");
+
+        //CEK ID JADWAL PADA DATABASE, JIKA TIDAK DITEMUKAN RETURN 404
+        $jadwal = JadwalPeriksa::findOrFail($request->id);
+
+        //PERIKSA APAKAH ADA JADWAL DOKTER AKTIF & FORM YANG DISUBMIT BERSTATUS AKTIF
+        if(JadwalPeriksa::where("id_dokter", $idDokter)->where("aktif", "Y")->first() && $request->aktif == "Y"){
+            //UPDATE SEMUA JADWAL DOKTER MENJADI TIDAK AKTIF KETIKA KONDISI TERPENUHI
+            JadwalPeriksa::where("id_dokter", $idDokter)->update(["aktif" => "T"]);
+        }
+
+        //SIMPAN PADA DATABASE
+        $jadwal->aktif = $request->aktif;
+        $jadwal->save();
+
+        toastr()->success("Edit jadwal periksa sukses");
+
+        return redirect('/dokter/jadwal_periksa');
+    }
 
     /**
      * Remove the specified resource from storage.
